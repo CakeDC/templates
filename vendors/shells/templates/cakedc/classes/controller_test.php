@@ -18,9 +18,9 @@ if ($parentIncluded):
 		$parentNotExistsId = "'noslug'";
 	}
 endif;
-$existsId = $existsValue = "'" . str_replace('_', '', Inflector::underscore($modelName)) . '-1' . "'";
+$existsId = $existsValue = str_replace('_', '', Inflector::underscore($modelName)) . '-1';
 if ($slugged) {
-	$existsValue = "'" . Inflector::underscore('First' . Inflector::singularize($modelName)) . "'";
+	$existsValue = Inflector::underscore('First' . Inflector::singularize($modelName));
 }
 ?>
 /**
