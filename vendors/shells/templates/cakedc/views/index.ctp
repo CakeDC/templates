@@ -68,9 +68,9 @@ foreach (\${$pluralVar} as \${$singularVar}):
 echo "<?php endforeach; ?>\n";
 ?>
 </table>
+<?php echo "<?php echo \$this->element('paging',array('plugin'=>'templates')); ?>\n";?>
 </div>
 
-<?php echo "<?php echo \$this->element('paging'); ?>\n";?>
 <div class="actions">
 	<ul>
 		<li><?php echo "<?php echo \$this->Html->link(__('New {$singularHumanName}', true), array('action' => 'add'{$additionalParams})); ?>";?></li>
