@@ -64,13 +64,13 @@ So if Article.title is required and validation rule created for it then this fie
 When fixture is configured, model test case is updated, the tests should be all green and show 100% code coverage.
 In other case if some tests are failing then fixture is not set up correctly or something is missing in model class
 
-When -appTestCase is used, you are required to add fixture name into APP/tests/config/fixtures.php file after the bake.
+By default you are required to add fixture name into APP/tests/config/fixtures.php file after the bake.
 
 ## Command line modifiers
 
  * -user UserModelName - generated model code contain userId parameter for all CRUD methods. Controller pass userId (as Auth->user('id') value) to the models.
  * -slug - make the generator do all model searches using a slug field instead of an id.
- * -appTestCase - generate test that extend AppTestCase instead of CakeTestCase
+ * -noAppTestCase - generate test that extend CakeTestCase instead of AppTestCase.
  * -parent - introduce Parent - Child model structure into cakephp code.
  * -parentSlug - make the generator do all parent model searches using a slug field on controller index.
  * -subthemes - allow to inject additional features into the baked code. For example introduce Search capabilities

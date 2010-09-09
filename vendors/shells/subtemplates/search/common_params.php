@@ -10,13 +10,13 @@
  */
 
 $slugged = false;
-$useAppTestCase = false;
+$useAppTestCase = true;
 $parentSlugged = false;
 $additionalParams = '';
 $parentIncluded = false;
 
-if (!empty($this->params['appTestCase'])) {
-	$useAppTestCase = true;
+if (!empty($this->params['noAppTestCase'])) {
+	$useAppTestCase = false;
 }
 
 
