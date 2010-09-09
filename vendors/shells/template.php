@@ -19,19 +19,19 @@ class TemplateShell extends Shell {
 
 
 	public function main() {
-		$model = $this->in('Model name');
+		$model = $this->in('Model name:');
 		$controller = Inflector::pluralize($model);
-		$modelSlugged = $this->in('Do you want to bake model using slug or id: slug/id', 's/i', 'i');
-		$hasParent = $this->in('Do you want to bake model that have parent model: yes/no', 'y/n', 'n');
+		$modelSlugged = $this->in("Do you want to bake model '$model' using a slug or id: slug/id", 's/i', 'i');
+		$hasParent = $this->in("Is the model '$model' dependent on a parent model: yes/no", 'y/n', 'n');
 		if ($hasParent == 'y') {
 			$parent = $this->in('Parent model name');
 			$parentSlugged = $this->in('Do you have parent model accessed using slug or id: slug/id', 's/i', 'i');
 		}
-		$userDependent = $this->in('Do you want to bake model that depend of user model: yes/no', 'y/n', 'n');
+		$userDependent = $this->in("Is the model '$model' dependent on the user model: yes/no", 'y/n', 'n');
 		if ($userDependent == 'y') {
-			$user = $this->in('User model name', null, 'User');
+			$user = $this->in('Name of your user model:', null, 'User');
 		}
-		$controllerActions = $this->in('Do you want to bake controller with all methods: yes/public/admin', 'y/p/a', 'y');
+		$controllerActions = $this->in('Do you want to bake the controller with all methods: yes/public/admin', 'y/p/a', 'y');
 		$appTestCase = $this->in('Do you want to inherit test cases from AppTestCase: yes/no', 'y/n', 'n');
 		
 		if ($controllerActions == 'y') {
