@@ -23,8 +23,11 @@ if ($type == 'Model'):
 	$modelName = $name = $fullClassName;
 	$singularName = Inflector::variable($fullClassName);
 	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($fullClassName))); 
-	//$localConstruction = "ClassRegistry::init('$fullClassName');\n";
-	$localConstruction = "AppMock::getTestModel('$fullClassName');\n";
+	if ($useAppTestCase) {
+		$localConstruction = "AppMock::getTestModel('$fullClassName');\n";
+	} else {
+		$localConstruction = "ClassRegistry::init('$fullClassName');\n";
+	}
 	$Subtemplate->set(compact('name', 'singularName', 'singularHumanName', 'localConstruction'));
 elseif ($type == 'Controller'):
 	$name = $className;
@@ -33,8 +36,11 @@ elseif ($type == 'Controller'):
 	$modelVariableName = Inflector::variable($modelName);
 	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($modelName))); 
 	$_className = substr($fullClassName, 0, strlen($fullClassName) - 10);
-	//$localConstruction = "new Test$fullClassName();\n\t\t\$this->{$_className}->constructClasses();\n";
-	$localConstruction = "AppMock::getTestController('$fullClassName');\n\t\t\$this->{$_className}->constructClasses();\n";
+	if ($useAppTestCase) {
+		$localConstruction = "AppMock::getTestController('$fullClassName');\n\t\t\$this->{$_className}->constructClasses();\n";
+	} else {
+		$localConstruction = "new Test$fullClassName();\n\t\t\$this->{$_className}->constructClasses();\n";
+	}
 	$Subtemplate->set(compact('name', 'controllerVaribleName', 'modelName', 'modelVariableName', 'singularHumanName', 'localConstruction'));
 else:
 endif;
