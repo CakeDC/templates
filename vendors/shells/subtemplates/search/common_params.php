@@ -10,9 +10,16 @@
  */
 
 $slugged = false;
+$useAppTestCase = false;
 $parentSlugged = false;
 $additionalParams = '';
 $parentIncluded = false;
+
+if (!empty($this->params['appTestCase'])) {
+	$useAppTestCase = true;
+}
+
+
 if (!empty($this->params['parent'])) {
 	$parentIncluded = true;
 	$parentClass = Inflector::classify($this->params['parent']);
@@ -43,5 +50,5 @@ if (!empty($this->params['user'])) {
 	$userIncluded = false;
 }
 
-$existsId = $existsValue = "'" . str_replace('_', '', Inflector::underscore($name)) . '-1' . "'";
-$sluggedValue = "'" . Inflector::underscore('First' . Inflector::singularize($name)) . "'";
+ 
+?>

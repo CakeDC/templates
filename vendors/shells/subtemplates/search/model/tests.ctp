@@ -11,6 +11,15 @@
 
 include(dirname(dirname(__FILE__)) . DS .  'common_params.php'); 
 extract($template->templateVars);
+
+$userId = 'user-1';
+if ($parentIncluded):
+	$parentExistsId = '1';
+	$parentNotExistsId = '99';
+endif;
+$existsId = $existsValue = "'" . str_replace('_', '', Inflector::underscore($name)) . '-1' . "'";
+$sluggedValue = "'" . Inflector::underscore('First' . Inflector::singularize($name)) . "'";
+
 ?> 
 /**
  * testPaginateCount

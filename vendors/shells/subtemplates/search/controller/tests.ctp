@@ -11,6 +11,17 @@
 
 include(dirname(dirname(__FILE__)) . DS .  'common_params.php'); 
 extract($template->templateVars);
+
+$userId = "'user-1'";
+if ($parentIncluded):
+	$parentExistsId = '1';
+	$parentNotExistsId = '99';
+	if ($parentSlugged) {
+		$parentExistsId = "'slug1'";
+		$parentNotExistsId = "'noslug'";
+	}
+endif; 
+
 ?> 
 /**
  * test<?php echo $methodNamePrefix;?>Find
