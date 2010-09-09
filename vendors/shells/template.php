@@ -66,7 +66,7 @@ class TemplateShell extends Shell {
 		}
 		$postfix .= $this->_possibleSubthemes($this->_getSubtemplates());
 		
-		$this->out('use next commands:');
+		$this->out('Use the following commands to bake your code:');
 		$this->out($modelCommand . $postfix);
 		$this->out($controllerCommand . $postfix);
 		$this->out($viewCommand . $postfix);
