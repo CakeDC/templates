@@ -85,7 +85,7 @@ if ($slugged) {
 <?php if ($userIncluded): ?>
 		$this-><?php echo $name ?>->Auth->setReturnValue('user', <?php echo $userId;?>, array('id'));
 <?php endif;?>
-		$this-><?php echo $name ?>-><?php echo $prefix;?>view('<?php echo $existsValue;?>');
+		$this-><?php echo $name ?>-><?php echo $prefix;?>view(<?php echo $existsValue;?>);
 		$this->assertTrue(!empty($this-><?php echo $name ?>->viewVars['<?php echo $modelVariableName;?>']));
 
 		$this-><?php echo $name ?>-><?php echo $prefix;?>view('WRONG-ID');
