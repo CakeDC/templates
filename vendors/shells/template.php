@@ -17,7 +17,11 @@
  */
 class TemplateShell extends Shell {
 
-
+/**
+ * main
+ *
+ * @return void
+ */
 	public function main() {
 		$model = $this->in('Model name:');
 		$controller = Inflector::pluralize($model);
@@ -72,14 +76,25 @@ class TemplateShell extends Shell {
 		$this->out($viewCommand . $postfix);
 		$this->out($viewCommand . ' delete delete' . $postfix);
 	}
-	
+
+/**
+ * Get Sub Template
+ *
+ * @return array
+ */
 	protected function _getSubtemplates() {
 		App::import('Vendor', 'Templates.Subtemplate');
 		$Subtemplate = new Subtemplate($this);
 		$Subtemplate->initialize();
 		return array_keys($Subtemplate->subTemplatePaths);
 	}
-	
+
+/**
+ * Possible Subthemes
+ *
+ * @param array $list 
+ * @return string
+ */
 	protected function _possibleSubthemes($list) {
 		$i = 0;
 		$this->out('Possible subthemes to include:');
@@ -92,9 +107,13 @@ class TemplateShell extends Shell {
 		}
 		return '';
 	}
-	
+
+/**
+ * Help
+ *
+ * @return void
+ */
 	public function help() {
 		$this->out('Template assistant');
 	}
 } 
-?> 
