@@ -1,4 +1,4 @@
-# Templates Plugin for CakePHP
+# Templates Plugin for CakePHP #
 
 This plugin allows you to quickly bake your applications with collection-like operations over your models and high test coverage (100%) for all your baked code. Basically, this plugin include custom template for the bake code generator. It also provides a wizard which will help you on the choosing of the right options for your bake commands.
 
@@ -7,13 +7,13 @@ Generated code focuses on the "fat models" mantra, they will have most of the lo
 One can ask why would I need to test model CRUD code that is already checked with cake core tests.
 Answer is simple. When you extend model features with callbacks and different behavior something unexpected can happen with model configurations and some of CRUD operations can be easily broken. Same with controller level tests.
 
-## Installation
+## Installation ##
 
 Drop the templates plugin folder into your app's plugins directory, or into the global plugins directory of your cake install. Optionally you can install this plugin as a git submodule.
 
     git submodule add git://github.com/CakeDC/templates.git plugins/templates
 
-## Basic Usage
+## Basic Usage ##
 
 The most easy way of using this plugin is executing via command line the following line
 
@@ -23,12 +23,13 @@ It will prompt you for the name of a model to start the process of baking code f
 
 After the bake don't expect all generated tests will be ready to run. You will need some fixtures preparation and tests tuning. In most cases it won't take more than 2-3 minutes to have new model and controller with 100% code coverage.
 
-## Introduce the AppTestCase library
+## Introduce the AppTestCase library ##
 
 This plugin introduce additional features into your application tests.
 First of all it contains AppTestCase class that extends CakeTestCase with some nice features. Also it allows to solve them problem of adding new models into app without breaking model and controller level tests. Instead of defining list of fixtures in each test file it is now possible to define just the the test scope.
 So, in test case file it is enough to define $plugin = 'app' for app level tests or $plugin = 'plugin_name' for plugin level tests.
 The APP/tests/config/fixtures.php should looks like 
+
 	$config = array(
 		'app.article',
 		'app.comment',
@@ -36,6 +37,7 @@ The APP/tests/config/fixtures.php should looks like
 		
 The AppTestCase also introduces plugin fixtures dependency resolving.
 To use it the APP/tests/config/dependent.php should looks like 
+
 	$config = array(
 		'friends', 'messages'); 
 		
@@ -43,13 +45,13 @@ During development sometimes it is really useful to run just one test. User can 
 
 Also it provides several mock methods.
  
- * AppMock::getTestModel - create a mock for a model.
- * AppMock::getTestController - allow to create mocked controller object where introduced 		expectRedirect method. Together with expectRedirect necessary to use  expectExactRedirectCount at the end of tested method. Also exists expectRender, expectExactRender and expectSetAction, expectExactSetActionCount method pairs. 
+* AppMock::getTestModel - create a mock for a model.
+* AppMock::getTestController - allow to create mocked controller object where introduced 		expectRedirect method. Together with expectRedirect necessary to use  expectExactRedirectCount at the end of tested method. Also exists expectRender, expectExactRender and expectSetAction, expectExactSetActionCount method pairs. 
 
 Here is the sample of create mocked controller object.
 	$this->Consoles = AppMock::getTestController('ConsolesController');
 
-## Tests and fixtures conventions
+## Tests and fixtures conventions ##
 		
 Tests baked with templates plugin follow some important conventions.
 
@@ -66,7 +68,7 @@ In other case if some tests are failing then fixture is not set up correctly or 
 
 By default you are required to add fixture name into APP/tests/config/fixtures.php file after the bake.
 
-## Command line modifiers
+## Command line modifiers ##
 
  * -user UserModelName - generated model code contain userId parameter for all CRUD methods. Controller pass userId (as Auth->user('id') value) to the models.
  * -slug - make the generator do all model searches using a slug field instead of an id.
@@ -75,7 +77,7 @@ By default you are required to add fixture name into APP/tests/config/fixtures.p
  * -parentSlug - make the generator do all parent model searches using a slug field on controller index.
  * -subthemes - allow to inject additional features into the baked code. For example introduce Search capabilities
 
-## Usage Example
+## Usage Example ##
     
 The following lines will generate the code for Author model, it's associated controller and views.
 
@@ -93,8 +95,7 @@ If you have classic Parent - Child model structure you can execute the following
 
 The previous commands will generate the code Article model using as a requisite the Author slug in function parameters.
 
-
-### Integrating with Search plugin
+### Integrating with Search plugin ###
 
 CakeDC Search plugin can be easily integrated into baked code, first grab the code and put it into your plugins folder (git://github.com/CakeDC/search.git) and add the subtheme option to your commands:
 
@@ -103,7 +104,7 @@ CakeDC Search plugin can be easily integrated into baked code, first grab the co
     cake bake view Article                  -theme cakedc -parent Author -parentSlug -subthemes Templates.search 
     cake bake view Article find             -theme search
 
-### User dependent actions
+### User dependent actions ###
 
 If you want to restrict actions or data modification only to the owning users of each record you should add the -user option to your commands, this options takes a parameter as the name of the model that represents users in your applications.
 
@@ -129,4 +130,4 @@ Copyright 2009-2010<br/>
 Cake Development Corporation<br/>
 1785 E. Sahara Avenue, Suite 490-423<br/>
 Las Vegas, Nevada 89104<br/>
-http://cakedc.com<br/>  
+http://cakedc.com<br/>

@@ -503,6 +503,4 @@ class MockRegistry {
 		}
 		return self::$_registry[$className];
 	}
-
 }
-?>
