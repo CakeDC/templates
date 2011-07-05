@@ -35,7 +35,7 @@ if($useAppTestCase) : ?>
 
 		// TODO Add your specific tests below
 		$data = $this->record;
-		//$data[<?php echo $name; ?>]['title'] = str_pad('too long', 1000);
+		//$data['<?php echo $name; ?>']['title'] = str_pad('too long', 1000);
 		//$expectedErrors = array('title');
 		$this->assertValidationErrors($this-><?php echo $name; ?>, $data, $expectedErrors);
 	}
