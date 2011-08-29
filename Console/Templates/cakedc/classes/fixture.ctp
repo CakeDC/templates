@@ -19,8 +19,8 @@
 <?php 
 include(dirname(dirname(__FILE__)) . DS .  'common_params.php');
 
-App::import('Vendor', 'Templates.Subtemplate');
-$Subtemplate = new Subtemplate($this); 
+App::uses('SubTemplateShell', 'Templates.Console/Command');
+$Subtemplate = new SubTemplateShell($this);
 ?>
 <?php echo '<?php' . "\n"; ?>
 /* <?php echo $model; ?> Fixture generated on: <?php echo  date('Y-m-d H:m:s') . " : ". time(); ?> */

@@ -17,6 +17,14 @@
  */
 class TemplateShell extends Shell {
 
+
+/**
+ * Contains tasks to load and instantiate
+ *
+ * @var array
+ */
+	public $tasks = array();
+
 /**
  * main
  *
@@ -39,34 +47,33 @@ class TemplateShell extends Shell {
 		$appTestCase = $this->in('Do you want to inherit test cases from AppTestCase: yes/no', 'y/n', 'n');
 		
 		if ($controllerActions == 'y') {
-			$controllerActions = 'public admin';
+			$controllerActions = '--public --admin';
 		} elseif ($controllerActions == 'p') {
-			$controllerActions = 'public';
+			$controllerActions = '--public';
 		} elseif ($controllerActions == 'a') {
-			$controllerActions = 'admin';
+			$controllerActions = '--admin';
 		}
 		
 		$theme = 'cakedc';
 		
-		$modelCommand = "cake bake model $model";
-		$modelCommand = "cake bake model $model";
-		$controllerCommand = "cake bake controller $controller $controllerActions";
-		$viewCommand = "cake bake view $controller";
-		$postfix = " -theme $theme";
+		$modelCommand = "cake Templates.ext_bake model $model";
+		$controllerCommand = "cake Templates.ext_bake controller $controller $controllerActions";
+		$viewCommand = "cake Templates.ext_bake view $controller";
+		$postfix = " --theme $theme";
 		if ($modelSlugged == 's') {
-			$postfix .= " -slug";
+			$postfix .= " --slug";
 		}
 		if ($hasParent == 'y') {
-			$postfix .= " -parent $parent";
+			$postfix .= " --parent $parent";
 			if ($parentSlugged == 'y') {
-				$postfix .= " -parentSlug";
+				$postfix .= " --parentSlug";
 			}
 		}
 		if ($userDependent == 'y') {
-			$postfix .= " -user $user";
+			$postfix .= " --user $user";
 		}
 		if ($appTestCase == 'y') {
-			$postfix .= " -appTestCase";
+			$postfix .= " --appTestCase";
 		}
 		$postfix .= $this->_possibleSubthemes($this->_getSubtemplates());
 		
@@ -83,8 +90,8 @@ class TemplateShell extends Shell {
  * @return array
  */
 	protected function _getSubtemplates() {
-		App::import('Vendor', 'Templates.Subtemplate');
-		$Subtemplate = new Subtemplate($this);
+		App::uses('SubTemplateShell', 'Templates.Console/Command');
+		$Subtemplate = new SubTemplateShell($this);
 		$Subtemplate->initialize();
 		return array_keys($Subtemplate->subTemplatePaths);
 	}
@@ -103,7 +110,7 @@ class TemplateShell extends Shell {
 		}
 		$response = $this->in('Do you want to include any subthemes?');
 		if (is_numeric($response)) {
-			return " -subthemes " . $list[$response - 1];
+			return " --subthemes " . $list[$response - 1];
 		}
 		return '';
 	}

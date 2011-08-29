@@ -48,8 +48,8 @@ if ($slugged) {
 	$controllerSingleParamDbField = "'slug'";
 }
 
-App::import('Vendor', 'Templates.Subtemplate');
-$Subtemplate = new Subtemplate($this);
+App::uses('SubTemplateShell', 'Templates.Console/Command');
+$Subtemplate = new SubTemplateShell($this); 
 echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 ?>
 
@@ -161,7 +161,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 	if (!empty($compact)):
 		echo "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
 	endif;
-?><?php echo r("\n", '', $controllerParentSetVars);?> 
+?><?php echo str_replace("\n", '', $controllerParentSetVars);?> 
 	}
 
 <?php $compact = array(); ?>
@@ -216,7 +216,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 		if (!empty($compact)):
 			echo "\t\t\$this->set(compact(".join(', ', $compact)."));\n";
 		endif;
-	?><?php echo r("\n", '', $controllerParentSetVars);?> 
+	?><?php echo str_replace("\n", '', $controllerParentSetVars);?> 
 	}
 
 /**

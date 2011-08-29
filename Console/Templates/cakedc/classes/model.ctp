@@ -35,8 +35,8 @@ if ($slugged) {
 	$controllerSingleParamDbField = "'slug'";
 }
 
-App::import('Vendor', 'Templates.Subtemplate');
-$Subtemplate = new Subtemplate($this);
+App::uses('SubTemplateShell', 'Templates.Console/Command');
+$Subtemplate = new SubTemplateShell($this);
 
 
 echo $Subtemplate->generate('model', 'preset');
@@ -233,7 +233,7 @@ endif;
 <?php 
 	if (!empty($validate)):
 	foreach ($validate as $field => $validations):
-		$fieldName = Inflector::humanize(r('_id', '', $field));
+		$fieldName = Inflector::humanize(str_replace('_id', '', $field));
 		echo "\t\t\t'$field' => array(\n";
 		foreach ($validations as $key => $validator):
 			echo "\t\t\t\t'$key' => array('rule' => array('$validator'), 'required' => true, 'allowEmpty' => false, 'message' => __('Please enter a $fieldName', true))),\n";

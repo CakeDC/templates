@@ -17,14 +17,15 @@ include(dirname(dirname(__FILE__)) . DS .  'common_params.php');
 
 $implementedMethods = array();
 
-App::import('Vendor', 'Templates.Subtemplate');
-$Subtemplate = new Subtemplate($this);
+App::uses('SubTemplateShell', 'Templates.Console/Command');
+$Subtemplate = new SubTemplateShell($this); 
 if ($type == 'Model'):
 	$modelName = $name = $fullClassName;
 	$singularName = Inflector::variable($fullClassName);
 	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($fullClassName))); 
 	if ($useAppTestCase) {
-		$localConstruction = "AppMock::getTestModel('$fullClassName');\n";
+		//$localConstruction = "$this->getMock('$fullClassName');\n";
+		$localConstruction = "ClassRegistry::init('$fullClassName');\n";
 	} else {
 		$localConstruction = "ClassRegistry::init('$fullClassName');\n";
 	}
@@ -37,7 +38,13 @@ elseif ($type == 'Controller'):
 	$singularHumanName = Inflector::humanize(Inflector::underscore(Inflector::singularize($modelName))); 
 	$_className = substr($fullClassName, 0, strlen($fullClassName) - 10);
 	if ($useAppTestCase) {
-		$localConstruction = "AppMock::getTestController('$fullClassName');\n\t\t\$this->{$_className}->constructClasses();\n";
+		$localConstruction = "\$this->generate(
+			'{$_className}', array(
+			  'methods' => array(
+				'redirect'),
+			  'components' => array(
+				'Session')));";
+		$localConstruction .= "\n\t\t\$this->{$_className}->constructClasses();\n";
 	} else {
 		$localConstruction = "new Test$fullClassName();\n\t\t\$this->{$_className}->constructClasses();\n";
 	}
@@ -53,15 +60,15 @@ App::import('<?php echo $type; ?>', '<?php echo $plugin . $className;?>');
 
 <?php if ($mock and strtolower($type) == 'controller'): ?>
 <?php if ($userIncluded): ?>
-App::import('Component', array('Auth'));
+//App::import('Component', array('Auth'));
 
-Mock::generate('AuthComponent', '<?php echo $fullClassName; ?>TestAuthComponent');
+//Mock::generate('AuthComponent', '<?php echo $fullClassName; ?>TestAuthComponent');
 
 <?php endif;?>
 <?php endif; ?>
 <?php if (!empty($useAppTestCase)): ?>
-App::import('Lib', 'Templates.AppTestCase');
-class <?php echo $fullClassName; ?>TestCase extends AppTestCase {
+App::import('Lib', 'Templates.AppControllerTestCase');
+class <?php echo $fullClassName; ?>TestCase extends AppControllerTestCase {
 /**
  * Autoload entrypoint for fixtures dependecy solver
  *
@@ -104,7 +111,7 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
 		$this-><?php echo $className . ' = ' . $localConstruction; ?>
 <?php if ($mock and strtolower($type) == 'controller'): ?>
 <?php if ($userIncluded): ?>
-		$this-><?php echo $className ?>->Auth = new <?php echo $fullClassName; ?>TestAuthComponent();
+		//$this-><?php echo $className ?>->Auth = new <?php echo $fullClassName; ?>TestAuthComponent();
 <?php endif;?>
 		$this-><?php echo $className ?>->params = array(
 			'named' => array(),
@@ -140,11 +147,11 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
  * @return void
  * @access public
  */
-	public function assertFlash($message) {
-		$flash = $this-><?php echo $className ?>->Session->read('Message.flash');
-		$this->assertEqual($flash['message'], $message);
-		$this-><?php echo $className ?>->Session->delete('Message.flash');
-	}
+	// public function assertFlash($message) {
+		// $flash = $this-><?php echo $className ?>->Session->read('Message.flash');
+		// $this->assertEqual($flash['message'], $message);
+		// $this-><?php echo $className ?>->Session->delete('Message.flash');
+	// }
 
 /**
  * Test object instances
@@ -153,8 +160,7 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
  * @access public
  */
 	public function testInstance() {
-		$this->assertIsA($this-><?php echo $className ?>, '<?php echo $fullClassName; ?>');
-		//$this->assertIsA($this-><?php echo $className ?>-><?php echo $currentModelName ?>, '<?php echo $currentModelName ?>');
+		$this->assertInstanceOf('<?php echo $fullClassName; ?>', $this-><?php echo $className ?>);
 	}
 
 

@@ -10,12 +10,19 @@
  */
 
 /**
+ * Included libraries.
+ *
+ */
+App::uses('Folder', 'Utility');
+  
+ 
+/**
  * Subtemplate Task generates templated output used in other tasks
  *
  * @package templates
  * @subpackage templates.shells
  */
-class Subtemplate extends Shell {
+class SubTemplateShell extends Shell {
 
 /**
  * variables to add to template scope
@@ -38,7 +45,7 @@ class Subtemplate extends Shell {
  */
 	public function __construct(&$template) { 
 		$this->Template = $template;
-		parent::__construct($template->Dispatch);
+		parent::__construct($template->stdout, $template->stderr, $template->stdin);
 	}
 
 /**
@@ -47,8 +54,10 @@ class Subtemplate extends Shell {
  * @return void
  */
 	public function initialize() {
+		if (empty($this->params) && !empty($this->Template) && !empty($this->Template->params)) {
+			$this->params = $this->Template->params;
+		}
 		$this->subTemplatePaths = $this->_findSubthemes();
-		//debug($this->subTemplatePaths);
 	}
 
 /**
@@ -60,7 +69,7 @@ class Subtemplate extends Shell {
 		$paths = App::path('shells');
 		$plugins = App::objects('plugin');
 		foreach ($plugins as $plugin) {
-			$paths[$plugin] = $this->_pluginPath($plugin) . 'vendors' . DS . 'shells' . DS;
+			$paths[$plugin] = $this->_pluginPath($plugin) . 'Console' . DS;
 		}
 
 		foreach ($paths as $i => $path) {
@@ -69,18 +78,18 @@ class Subtemplate extends Shell {
 
 		$subthemes = array();
 		foreach ($paths as $plugin => $path) {
-			$Folder =& new Folder($path . 'subtemplates', false);
+			$Folder = new Folder($path . 'SubTemplates', false);
 			$contents = $Folder->read();
 			$subDirs = $contents[0];
 			foreach ($subDirs as $dir) {
 				if (empty($dir) || preg_match('@^skel$|_skel|\..+$@', $dir)) {
 					continue;
 				}
-				$Folder =& new Folder($path . 'subtemplates' . DS . $dir);
+				$Folder = new Folder($path . 'SubTemplates' . DS . $dir);
 				$contents = $Folder->read();
 				$subDirs = $contents[0];
 				
-				$templateDir = $path . 'subtemplates' . DS . $dir . DS;
+				$templateDir = $path . 'SubTemplates' . DS . $dir . DS;
 				$subthemes[$plugin . '.' . $dir] = $templateDir;
 			}
 		}
