@@ -38,6 +38,14 @@ class ExtViewTask extends ViewTask {
 		$parser = parent::getOptionParser();
 		return 
 			$parser
+			->addOption('plugin', array(
+				'short' => 'l',
+				'help' => __d('cake_console', 'Plugin.')
+			))
+			->addOption('appTestCase', array(
+				'short' => 'z',
+				'help' => __d('cake_console', 'App test case.')
+			))
 			->addOption('noAppTestCase', array(
 				'short' => 'n',
 				'help' => __d('cake_console', 'App test case.')

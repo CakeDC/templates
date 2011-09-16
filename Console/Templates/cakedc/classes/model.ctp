@@ -43,6 +43,20 @@ echo $Subtemplate->generate('model', 'preset');
 extract($this->templateVars);
 
 echo "<?php\n"; ?>
+<?php if (!empty($property)): ?>
+/*
+	<?php 
+	$_associations = array();
+	$_associations =  array_merge($_associations, $associations['belongsTo']);
+	$_associations =  array_merge($_associations, $associations['hasMany']);
+	$_associations =  array_merge($_associations, $associations['hasOne']);
+	$_associations =  array_merge($_associations, $associations['hasAndBelongsToMany']);
+	foreach ($associations as $i => $relation) {
+		echo " * @property {$relation['className']}} {$relation['alias']}}";
+		}
+	?>
+*/
+<?php endif; ?>
 class <?php echo $name ?> extends <?php echo $plugin; ?>AppModel {
 /**
  * Name

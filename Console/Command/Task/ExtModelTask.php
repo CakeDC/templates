@@ -39,6 +39,14 @@ class ExtModelTask extends ModelTask {
 		$parser = parent::getOptionParser();
 		return 
 			$parser
+			->addOption('plugin', array(
+				'short' => 'l',
+				'help' => __d('cake_console', 'Plugin.')
+			))
+			->addOption('appTestCase', array(
+				'short' => 'z',
+				'help' => __d('cake_console', 'App test case.')
+			))
 			->addOption('noAppTestCase', array(
 				'short' => 'n',
 				'help' => __d('cake_console', 'App test case.')
@@ -62,6 +70,10 @@ class ExtModelTask extends ModelTask {
 			->addOption('subthemes', array(
 				'short' => 'b',
 				'help' => __d('cake_console', 'subthemes.')
+			))			
+			->addOption('property', array(
+				'short' => 'y',
+				'help' => __d('cake_console', 'generate IDE properties hints for model relations')
 			))			
 			;
 	}

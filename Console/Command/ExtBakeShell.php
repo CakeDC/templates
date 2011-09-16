@@ -136,6 +136,14 @@ class ExtBakeShell extends BakeShell {
 		$parser = parent::getOptionParser();
 		return 
 		$parser		
+			->addOption('plugin', array(
+				'short' => 'l',
+				'help' => __d('cake_console', 'Plugin.')
+			))
+			->addOption('appTestCase', array(
+				'short' => 'z',
+				'help' => __d('cake_console', 'App test case.')
+			))
 			->addOption('noAppTestCase', array(
 				'short' => 'n',
 				'help' => __d('cake_console', 'App test case.')
@@ -168,6 +176,10 @@ class ExtBakeShell extends BakeShell {
 				'short' => 'a',
 				'help' => __d('cake_console', 'admin controller action')
 			))			
+			->addOption('property', array(
+				'short' => 'y',
+				'help' => __d('cake_console', 'generate IDE properties hints for model relations')
+			))
 		
 		;
 	}
