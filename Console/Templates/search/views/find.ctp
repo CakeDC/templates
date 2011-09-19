@@ -77,7 +77,7 @@ foreach (\${$pluralVar} as \${$singularVar}):
 echo "<?php endforeach; ?>\n";
 ?>
 </table>
-<?php echo "<?php echo \$this->element('paging',array('plugin'=>'templates')); ?>\n";?>
+<?php echo "<?php echo \$this->element('paging', array('plugin' => 'Templates')); ?>\n";?>
 </div>
 
 <div class="actions">

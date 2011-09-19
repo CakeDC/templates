@@ -150,6 +150,12 @@ class ExtBakeShell extends BakeShell {
 			))
 			->addOption('slug', array(
 				'short' => 's',
+				'boolean' => true,
+				'help' => __d('cake_console', 'Use slug.')
+			))
+			->addOption('parentSlug', array(
+				'short' => 'f',
+				'boolean' => true,
 				'help' => __d('cake_console', 'Use slug.')
 			))
 			->addOption('user', array(
@@ -178,6 +184,7 @@ class ExtBakeShell extends BakeShell {
 			))			
 			->addOption('property', array(
 				'short' => 'y',
+				'boolean' => true,
 				'help' => __d('cake_console', 'generate IDE properties hints for model relations')
 			))
 		

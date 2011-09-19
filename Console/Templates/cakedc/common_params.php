@@ -19,10 +19,10 @@ if (!empty($this->params['noAppTestCase'])) {
 	$useAppTestCase = false;
 }
 
-
 if (!empty($this->params['property'])) {
 	$property = true;
 }
+
 if (!empty($this->params['parent'])) {
 	$parentIncluded = true;
 	$parentClass = Inflector::classify($this->params['parent']);

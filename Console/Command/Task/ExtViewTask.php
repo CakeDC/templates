@@ -25,6 +25,8 @@ App::uses('ViewTask', 'Console/Command/Task');
  */
 class ExtViewTask extends ViewTask {
 
+	public $name = 'View';
+
 	public function execute() {
 		parent::execute();
 	}
@@ -52,6 +54,12 @@ class ExtViewTask extends ViewTask {
 			))
 			->addOption('slug', array(
 				'short' => 's',
+				'boolean' => true,
+				'help' => __d('cake_console', 'Use slug.')
+			))
+			->addOption('parentSlug', array(
+				'short' => 'f',
+				'boolean' => true,
 				'help' => __d('cake_console', 'Use slug.')
 			))
 			->addOption('user', array(
@@ -70,7 +78,19 @@ class ExtViewTask extends ViewTask {
 				'short' => 'b',
 				'help' => __d('cake_console', 'subthemes.')
 			))			
-			
+			->addOption('property', array(
+				'short' => 'y',
+				'boolean' => true,
+				'help' => __d('cake_console', 'generate IDE properties hints for model relations')
+			))			
+			->addOption('public', array(
+				'short' => 'p',
+				'help' => __d('cake_console', 'public controller action')
+			))			
+			->addOption('admin', array(
+				'short' => 'a',
+				'help' => __d('cake_console', 'admin controller action')
+			))			 			
 			;
 	}
 

@@ -67,12 +67,12 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			$this->Session->setFlash(__('Wrong id',true));
 			$this->redirect('/');
 		}
-		$this->paginate['conditions'] = array('<?php echo $parentIdDbVar;?>' => $<?php echo $singularParentName;?>['<?php echo $parentClass;?>']['id']);
+		$this->Paginator->paginate['conditions'] = array('<?php echo $parentIdDbVar;?>' => $<?php echo $singularParentName;?>['<?php echo $parentClass;?>']['id']);
 <?php else:?>
-		$this->paginate['conditions'] = array('<?php echo $parentIdDbVar;?>' => $<?php echo $parentIdVar;?>);
+		$this->Paginator->paginate['conditions'] = array('<?php echo $parentIdDbVar;?>' => $<?php echo $parentIdVar;?>);
 <?php endif;?>
 <?php endif;?>
-		$this->set('<?php echo $pluralName ?>', $this->paginate());<?php echo $controllerParentSetVars;?> 
+		$this->set('<?php echo $pluralName ?>', $this->Paginator->paginate());<?php echo $controllerParentSetVars;?> 
 	}
 
 /**
@@ -126,7 +126,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			}
 			$<?php echo $parentIdVar;?> = $<?php echo $singularParentName;?>['<?php echo $parentClass;?>']['id'];
 <?php endif; ?>
-			$result = $this-><?php echo $currentModelName; ?>->add(<?php if ($parentIncluded) echo '$' . $parentIdVar . ', ' ?><?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->data);
+			$result = $this-><?php echo $currentModelName; ?>->add(<?php if ($parentIncluded) echo '$' . $parentIdVar . ', ' ?><?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->request->data);
 			if ($result === true) {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been saved', true));
@@ -173,7 +173,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
  */
 	public function <?php echo $admin; ?>edit(<?php echo $controllerSingleParamId;?>) {
 		try {
-			$result = $this-><?php echo $currentModelName; ?>->edit(<?php echo $controllerSingleParamNameId; ?>, <?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->data);
+			$result = $this-><?php echo $currentModelName; ?>->edit(<?php echo $controllerSingleParamNameId; ?>, <?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->request->data);
 			if ($result === true) {
 <?php if ($parentIncluded):?>		
 				$<?php echo $parentIdVar;?> = $this-><?php echo $currentModelName; ?>->data['<?php echo $currentModelName; ?>']['<?php echo $parentIdDbVar;?>'];
@@ -185,9 +185,9 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			$this->flash(__('Invalid <?php echo strtolower($singularHumanName); ?>', true), array('action' => 'view', $this-><?php echo $currentModelName; ?>->data['<?php echo $currentModelName; ?>'][<?php echo $controllerSingleParamDbField;?>]));
 <?php endif; ?>				
 			} else {
-				$this->data = $result;
+				$this->request->data = $result;
 <?php if ($parentIncluded):?>		
-				$<?php echo $parentIdVar;?> = $this->data['<?php echo $currentModelName; ?>']['<?php echo $parentIdDbVar;?>'];
+				$<?php echo $parentIdVar;?> = $this->request->data['<?php echo $currentModelName; ?>']['<?php echo $parentIdDbVar;?>'];
 <?php endif; ?>
 			}
 <?php if ($parentSlugged): ?>
@@ -242,7 +242,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			<?php echo "\$this->set(compact('". $parentIdVar . "'));";?> 
 <?php endif;?>
 <?php endif; ?>
-			$result = $this-><?php echo $currentModelName; ?>->validateAndDelete(<?php echo $controllerSingleParamNameId; ?>, <?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->data);
+			$result = $this-><?php echo $currentModelName; ?>->validateAndDelete(<?php echo $controllerSingleParamNameId; ?>, <?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->request->data);
 			if ($result === true) {
 <?php if ($wannaUseSession): ?>
 				$this->Session->setFlash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> deleted', true));

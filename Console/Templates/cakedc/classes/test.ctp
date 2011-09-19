@@ -60,15 +60,33 @@ App::import('<?php echo $type; ?>', '<?php echo $plugin . $className;?>');
 
 <?php if ($mock and strtolower($type) == 'controller'): ?>
 <?php if ($userIncluded): ?>
-//App::import('Component', array('Auth'));
-
-//Mock::generate('AuthComponent', '<?php echo $fullClassName; ?>TestAuthComponent');
 
 <?php endif;?>
 <?php endif; ?>
 <?php if (!empty($useAppTestCase)): ?>
+<?php if ($type == 'Model'):?>
+App::import('Lib', 'Templates.AppTestCase');
+<?php if (!empty($property)): ?>
+/**
+<?php 
+	echo " * @property {$className} \${$className}\n";
+	echo " * @property array \$record\n";
+?>
+ */
+<?php endif; ?>
+class <?php echo $fullClassName; ?>TestCase extends AppTestCase {
+<?php elseif ($type == 'Controller'):?>
 App::import('Lib', 'Templates.AppControllerTestCase');
+<?php if (!empty($property)): ?>
+/**
+<?php 
+	echo " * @property {$className} \${$className}\n";
+	echo " * @property array \$record\n";
+?>
+ */
+<?php endif; ?>
 class <?php echo $fullClassName; ?>TestCase extends AppControllerTestCase {
+<?php endif; ?>
 /**
  * Autoload entrypoint for fixtures dependecy solver
  *
@@ -167,6 +185,7 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
 <?php
 	$implementedMethods = array();
 	$publicImplementedMethods = array('add', 'edit', 'view', 'delete', 'index'); 
+	debug($methods);
 	if (count(array_diff($publicImplementedMethods, $methods)) == 0) {
 		$prefix = '';
 		$methodNamePrefix = '';
@@ -198,4 +217,3 @@ endif; ?>
 
 <?php endforeach;?>
 }
-<?php echo '?>'; ?>

@@ -26,6 +26,8 @@ App::uses('ModelTask', 'Console/Command/Task');
  */
 class ExtModelTask extends ModelTask {
 
+	public $name = 'Model';
+
 	public function execute() {
 		parent::execute();
 	}
@@ -53,6 +55,12 @@ class ExtModelTask extends ModelTask {
 			))
 			->addOption('slug', array(
 				'short' => 's',
+				'boolean' => true,
+				'help' => __d('cake_console', 'Use slug.')
+			))
+			->addOption('parentSlug', array(
+				'short' => 'f',
+				'boolean' => true,
 				'help' => __d('cake_console', 'Use slug.')
 			))
 			->addOption('user', array(
@@ -73,6 +81,7 @@ class ExtModelTask extends ModelTask {
 			))			
 			->addOption('property', array(
 				'short' => 'y',
+				'boolean' => true,
 				'help' => __d('cake_console', 'generate IDE properties hints for model relations')
 			))			
 			;

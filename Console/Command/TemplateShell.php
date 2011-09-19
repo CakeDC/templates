@@ -45,6 +45,15 @@ class TemplateShell extends Shell {
 		}
 		$controllerActions = $this->in('Do you want to bake the controller with all methods: yes/public/admin', 'y/p/a', 'y');
 		$appTestCase = $this->in('Do you want to inherit test cases from AppTestCase: yes/no', 'y/n', 'n');
+
+		$usePlugin = $this->in("Do you want to bake in plugin: yes/no", 'y/n', 'n');
+		if ($usePlugin == 'y') {
+			$pluginName = $this->in('Name of your plugin:', null, '');
+			if ($pluginName == '') {
+				$usePlugin = 'n';
+			}
+		}
+
 		
 		if ($controllerActions == 'y') {
 			$controllerActions = '--public --admin';
@@ -58,7 +67,7 @@ class TemplateShell extends Shell {
 		
 		$modelCommand = "cake Templates.ext_bake model $model";
 		$controllerCommand = "cake Templates.ext_bake controller $controller $controllerActions";
-		$viewCommand = "cake Templates.ext_bake view $controller";
+		$viewCommand = "cake Templates.ext_bake view $controller $controllerActions";
 		$postfix = " --theme $theme";
 		if ($modelSlugged == 's') {
 			$postfix .= " --slug";
@@ -75,7 +84,14 @@ class TemplateShell extends Shell {
 		if ($appTestCase == 'y') {
 			$postfix .= " --appTestCase";
 		}
+		if ($usePlugin == 'y') {
+			$postfix .= " --plugin $pluginName";
+		}
 		$postfix .= $this->_possibleSubthemes($this->_getSubtemplates());
+		
+		if ($this->in("Do you want to generate properties hints: yes/no", 'y/n', 'n') == 'y') {
+			$postfix .= " --property";
+		}
 		
 		$this->out('Use the following commands to bake your code:');
 		$this->out($modelCommand . $postfix);

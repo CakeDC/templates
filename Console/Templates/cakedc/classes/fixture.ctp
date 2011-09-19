@@ -74,4 +74,3 @@ class <?php echo $model; ?>Fixture extends CakeTestFixture {
 
 <?php endif;?>
 }
-<?php echo '?>'; ?>

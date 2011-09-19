@@ -43,19 +43,28 @@ echo $Subtemplate->generate('model', 'preset');
 extract($this->templateVars);
 
 echo "<?php\n"; ?>
+
+<?php if (!empty($plugin)): ?>
+App::uses('<?php echo $plugin; ?>AppModel', '<?php echo $plugin; ?>.Model');
+<?php else: ?>
+App::uses('AppModel', 'Model');
+<?php endif; ?>
+
 <?php if (!empty($property)): ?>
-/*
-	<?php 
+/**
+<?php 
 	$_associations = array();
-	$_associations =  array_merge($_associations, $associations['belongsTo']);
-	$_associations =  array_merge($_associations, $associations['hasMany']);
-	$_associations =  array_merge($_associations, $associations['hasOne']);
-	$_associations =  array_merge($_associations, $associations['hasAndBelongsToMany']);
-	foreach ($associations as $i => $relation) {
-		echo " * @property {$relation['className']}} {$relation['alias']}}";
+	$assocTypes = array('belongsTo', 'hasAndBelongsToMany', 'hasOne', 'hasMany');
+	foreach ($assocTypes as $assocType) {
+		if (!empty($associations[$assocType])) {
+			$_associations =  array_merge($_associations, $associations[$assocType]);
 		}
-	?>
-*/
+	}
+	foreach ($_associations as $i => $relation) {
+		echo " * @property {$relation['className']} \${$relation['alias']}\n";
+		}
+?>
+ */
 <?php endif; ?>
 class <?php echo $name ?> extends <?php echo $plugin; ?>AppModel {
 /**
@@ -65,8 +74,8 @@ class <?php echo $name ?> extends <?php echo $plugin; ?>AppModel {
  * @access public
  */
 	public $name = '<?php echo $name; ?>';
-
 <?php if ($useDbConfig != 'default'): ?>
+
 /**
  * Table datasource config name
  *
@@ -80,6 +89,7 @@ class <?php echo $name ?> extends <?php echo $plugin; ?>AppModel {
 	echo "\tpublic \$useTable = $table;\n";
 endif;
 if ($primaryKey !== 'id'): ?>
+
 /**
  * Primary key field name
  *
@@ -89,6 +99,7 @@ if ($primaryKey !== 'id'): ?>
 	public $primaryKey = '<?php echo $primaryKey; ?>';
 <?php endif;
 if ($displayField): ?>
+
 /**
  * Display field name
  *
@@ -150,9 +161,9 @@ foreach (array('hasOne', 'belongsTo') as $assocType):
 			$out = "\n\t\t'{$relation['alias']}' => array(\n";
 			$out .= "\t\t\t'className' => '{$relation['className']}',\n";
 			$out .= "\t\t\t'foreignKey' => '{$relation['foreignKey']}',\n";
-			$out .= "\t\t\t'conditions' => '',\n";
-			$out .= "\t\t\t'fields' => '',\n";
-			$out .= "\t\t\t'order' => ''\n";
+			// $out .= "\t\t\t'conditions' => '',\n";
+			// $out .= "\t\t\t'fields' => '',\n";
+			// $out .= "\t\t\t'order' => ''\n";
 			$out .= "\t\t)";
 			if ($i + 1 < $typeCount) {
 				$out .= ",";
@@ -179,14 +190,14 @@ if (!empty($associations['hasMany'])):
 		$out .= "\t\t\t'className' => '{$relation['className']}',\n";
 		$out .= "\t\t\t'foreignKey' => '{$relation['foreignKey']}',\n";
 		$out .= "\t\t\t'dependent' => false,\n";
-		$out .= "\t\t\t'conditions' => '',\n";
-		$out .= "\t\t\t'fields' => '',\n";
-		$out .= "\t\t\t'order' => '',\n";
-		$out .= "\t\t\t'limit' => '',\n";
-		$out .= "\t\t\t'offset' => '',\n";
-		$out .= "\t\t\t'exclusive' => '',\n";
-		$out .= "\t\t\t'finderQuery' => '',\n";
-		$out .= "\t\t\t'counterQuery' => ''\n";
+		// $out .= "\t\t\t'conditions' => '',\n";
+		// $out .= "\t\t\t'fields' => '',\n";
+		// $out .= "\t\t\t'order' => '',\n";
+		// $out .= "\t\t\t'limit' => '',\n";
+		// $out .= "\t\t\t'offset' => '',\n";
+		// $out .= "\t\t\t'exclusive' => '',\n";
+		// $out .= "\t\t\t'finderQuery' => '',\n";
+		// $out .= "\t\t\t'counterQuery' => ''\n";
 		$out .= "\t\t)";
 		if ($i + 1 < $belongsToCount) {
 			$out .= ",";
@@ -214,14 +225,14 @@ if (!empty($associations['hasAndBelongsToMany'])):
 		$out .= "\t\t\t'foreignKey' => '{$relation['foreignKey']}',\n";
 		$out .= "\t\t\t'associationForeignKey' => '{$relation['associationForeignKey']}',\n";
 		$out .= "\t\t\t'unique' => true,\n";
-		$out .= "\t\t\t'conditions' => '',\n";
-		$out .= "\t\t\t'fields' => '',\n";
-		$out .= "\t\t\t'order' => '',\n";
-		$out .= "\t\t\t'limit' => '',\n";
-		$out .= "\t\t\t'offset' => '',\n";
-		$out .= "\t\t\t'finderQuery' => '',\n";
-		$out .= "\t\t\t'deleteQuery' => '',\n";
-		$out .= "\t\t\t'insertQuery' => ''\n";
+		// $out .= "\t\t\t'conditions' => '',\n";
+		// $out .= "\t\t\t'fields' => '',\n";
+		// $out .= "\t\t\t'order' => '',\n";
+		// $out .= "\t\t\t'limit' => '',\n";
+		// $out .= "\t\t\t'offset' => '',\n";
+		// $out .= "\t\t\t'finderQuery' => '',\n";
+		// $out .= "\t\t\t'deleteQuery' => '',\n";
+		// $out .= "\t\t\t'insertQuery' => ''\n";
 		$out .= "\t\t)";
 		if ($i + 1 < $habtmCount) {
 			$out .= ",";
@@ -231,7 +242,6 @@ if (!empty($associations['hasAndBelongsToMany'])):
 	echo "\n\t);\n\n";
 endif;
 ?>
-
 
 /**
  * Constructor
@@ -258,10 +268,7 @@ endif;
 		);
 	}
 
-
-
 <?php echo $Subtemplate->generate('model', 'var'); ?>	
-
 /**
  * Adds a new record to the database
  *
@@ -405,4 +412,3 @@ endif;
 <?php echo $Subtemplate->generate('model', 'code'); ?>
 
 }
-<?php echo '?>'; ?>

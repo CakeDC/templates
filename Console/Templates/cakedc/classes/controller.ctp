@@ -25,6 +25,20 @@ extract($this->templateVars);
 
 echo "<?php\n";
 ?>
+
+<?php if (!empty($plugin)): ?>
+App::uses('<?php echo $plugin; ?>AppController', '<?php echo $plugin; ?>.Controller');
+<?php else: ?>
+App::uses('AppController', 'Controller');
+<?php endif; ?>
+
+<?php if (!empty($property)): ?>
+/**
+<?php 
+	echo " * @property {$currentModelName} \${$currentModelName}\n";
+?>
+ */
+<?php endif; ?>
 class <?php echo $controllerName; ?>Controller extends <?php echo $plugin; ?>AppController {
 /**
  * Controller name
@@ -83,4 +97,3 @@ endif; ?>
 
 
 }
-<?php echo "?>"; ?>
