@@ -185,7 +185,6 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
 <?php
 	$implementedMethods = array();
 	$publicImplementedMethods = array('add', 'edit', 'view', 'delete', 'index'); 
-	debug($methods);
 	if (count(array_diff($publicImplementedMethods, $methods)) == 0) {
 		$prefix = '';
 		$methodNamePrefix = '';
