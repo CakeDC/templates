@@ -8,15 +8,8 @@
  * @copyright Copyright 2005-2010, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-?>
-/**
- * Test adding a <?php echo $singularHumanName;?> 
- *
- * @return void
- * @access public
- */
-	public function testAdd() {
-<?php 
+?><?php
+	// Initializes internal variables
 	$userId = 'user-1';
 	if ($parentIncluded):
 		$parentExistsId = '1';
@@ -24,7 +17,37 @@
 	endif;
 	$existsId = $existsValue = "'" . str_replace('_', '', Inflector::underscore($modelName)) . '-1' . "'";
 	$sluggedValue = "'" . Inflector::underscore('First' . Inflector::singularize($modelName)) . "'";
-?>
+
+if($useAppTestCase) : ?>
+/**
+ * Test validation rules
+ *
+ * @return void
+ * @access public
+ */
+	public function testValidation() {
+		$this->assertValid($this-><?php echo $name; ?>, $this->record);
+
+		// Test mandatory fields
+		$data = array('<?php echo $name; ?>' => array('id' => 'new-id'));
+		$expectedErrors = array(); // TODO Update me with mandatory fields
+		$this->assertValidationErrors($this-><?php echo $name; ?>, $data, $expectedErrors);
+
+		// TODO Add your specific tests below
+		$data = $this->record;
+		//$data['<?php echo $name; ?>']['title'] = str_pad('too long', 1000);
+		//$expectedErrors = array('title');
+		$this->assertValidationErrors($this-><?php echo $name; ?>, $data, $expectedErrors);
+	}
+
+<?php endif; ?>
+/**
+ * Test adding a <?php echo $singularHumanName;?> 
+ *
+ * @return void
+ * @access public
+ */
+	public function testAdd() {
 <?php if ($userIncluded): ?>
 		$userId = '<?php echo $userId; ?>';
 <?php endif;?>
