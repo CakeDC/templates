@@ -1,5 +1,7 @@
 # Templates Plugin for CakePHP #
 
+Version 1.1
+
 This plugin allows you to quickly bake your applications with collection-like operations over your models and high test coverage (100%) for all your baked code. Basically, this plugin include custom template for the bake code generator. It also provides a wizard which will help you on the choosing of the right options for your bake commands.
 
 Generated code focuses on the "fat models" mantra, they will have most of the logic for handling your data, and sending messages back to the controller to do the flow control.
@@ -146,7 +148,7 @@ Redistributions of files must retain the above copyright notice.
 
 ## Copyright ###
 
-Copyright 2009-2010<br/>
+Copyright 2009-2011<br/>
 [Cake Development Corporation](http://cakedc.com)<br/>
 1785 E. Sahara Avenue, Suite 490-423<br/>
 Las Vegas, Nevada 89104<br/>
