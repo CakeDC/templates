@@ -52,12 +52,12 @@ foreach (\${$pluralVar} as \${$singularVar}):
 				echo "\t\t<td>\n\t\t\t<?php echo \${$singularVar}['{$modelClass}']['{$field}']; ?>\n\t\t</td>\n";
 			}
 		}
-		
+
 		$idKeyPK = $idKey = "\${$singularVar}['{$modelClass}']['{$primaryKey}']";
 		if ($slugged) {
 			$idKey = "\${$singularVar}['{$modelClass}']['slug']";
 		}
-		
+
 		echo "\t\t<td class=\"actions\">\n";
 		echo "\t\t\t<?php echo \$this->Html->link(__('View'), array('action' => 'view', {$idKey})); ?>\n";
 	 	echo "\t\t\t<?php echo \$this->Html->link(__('Edit'), array('action' => 'edit', {$idKeyPK})); ?>\n";
@@ -68,7 +68,7 @@ foreach (\${$pluralVar} as \${$singularVar}):
 echo "<?php endforeach; ?>\n";
 ?>
 </table>
-<?php echo "<?php echo \$this->element('paging', array('plugin' => 'Templates')); ?>\n";?>
+<?php echo "<?php echo \$this->element('paging', array(), array('plugin' => 'Templates')); ?>\n";?>
 </div>
 
 <div class="actions">
