@@ -18,10 +18,10 @@
 		'url' => array(
 			'action' => 'delete',
 			$<?php echo $singularVar;?>['<?php echo $modelClass;?>']['id'])));
-	echo $form->input('confirm', array(
+	echo $this->Form->input('confirm', array(
 		'label' => __('Confirm'),
 		'type' => 'checkbox',
 		'error' => __('You have to confirm.')));
-	echo $form->submit(__('Continue'));
-	echo $form->end();
+	echo $this->Form->submit(__('Continue'));
+	echo $this->Form->end();
 <?php echo "?>";?>
