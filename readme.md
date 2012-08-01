@@ -1,5 +1,7 @@
 # Templates Plugin for CakePHP #
 
+for cake 2.x
+
 This plugin allows you to quickly bake your applications with collection-like operations over your models and high test coverage (100%) for all your baked code. Basically, this plugin include custom template for the bake code generator. It also provides a wizard which will help you on the choosing of the right options for your bake commands.
 
 Generated code focuses on the "fat models" mantra, they will have most of the logic for handling your data, and sending messages back to the controller to do the flow control.
@@ -131,6 +133,19 @@ If you want to restrict actions or data modification only to the owning users of
 For support and feature request, please visit the [Templates Plugin Support Site](http://cakedc.lighthouseapp.com/projects/59612-templates-plugin/).
 
 For more information about our Professional CakePHP Services please visit the [Cake Development Corporation website](http://cakedc.com).
+
+## Branch strategy ##
+
+The master branch holds the STABLE latest version of the plugin. 
+Develop branch is UNSTABLE and used to test new features before releasing them. 
+
+Previous maintenance versions are named after the CakePHP compatible version, for example, branch 1.3 is the maintenance version compatible with CakePHP 1.3.
+All versions are updated with security patches.
+
+## Contributing to this Plugin ##
+
+Please feel free to contribute to the plugin with new issues, requests, unit tests and code fixes or new features. If you want to contribute some code, create a feature branch from develop, and send us your pull request. Unit tests for new features and issues detected are mandatory to keep quality high. 
+
 
 ## License ##
 
