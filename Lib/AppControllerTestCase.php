@@ -230,7 +230,7 @@ class AppControllerTestCase extends ControllerTestCase {
 	}
 
 	
-	public function assertIsA($actual, $expected, $message = '') {
+	public static function assertIsA($actual, $expected, $message = '') {
 		self::assertType($expected, $actual, $message);
 	}
 
