@@ -93,7 +93,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 <?php endif; ?>
 		} catch (OutOfBoundsException $e) {
 <?php if ($wannaUseSession): ?>
-			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 <?php if ($parentIncluded):?>		
 			$this->redirect('/');
 <?php else: ?>
@@ -121,7 +121,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 <?php if ($parentSlugged): ?>
 			$<?php echo $singularParentName;?> = $this-><?php echo $currentModelName ?>-><?php echo $parentClass;?>->find('first', array('conditions' => array('<?php echo $parentClass;?>.slug' => $<?php echo $parentSlugVar;?>), 'recursive' => -1));
 			if (empty($<?php echo $singularParentName;?>)) {
-				$this->Session->setFlash(__('Wrong id',true), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+				$this->Session->setFlash(__('Wrong id',true), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 				$this->redirect('/');
 			}
 			$<?php echo $parentIdVar;?> = $<?php echo $singularParentName;?>['<?php echo $parentClass;?>']['id'];
@@ -129,7 +129,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			$result = $this-><?php echo $currentModelName; ?>->add(<?php if ($parentIncluded) echo '$' . $parentIdVar . ', ' ?><?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->request->data);
 			if ($result === true) {
 <?php if ($wannaUseSession): ?>
-				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been saved', true), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+				$this->Session->setFlash(__('The <?php echo strtolower($singularHumanName); ?> has been saved', true), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 				$this->redirect(array('action' => 'index'<?php echo $controllerRoutePostfix; ?>));
 <?php else: ?>
 				$this->flash(__('<?php echo ucfirst(strtolower($currentModelName)); ?> saved.', true), array('action' => 'index'<?php echo $controllerRoutePostfix; ?>));
@@ -137,11 +137,11 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			}
 		} catch (OutOfBoundsException $e) {
 <?php if ($wannaUseSession): ?>
-			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 <?php endif; ?>
 		} catch (Exception $e) {
 <?php if ($wannaUseSession): ?>
-			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 			$this->redirect(array('action' => 'index'<?php echo $controllerRoutePostfix; ?>));
 <?php else: ?>
 			$this->flash($e->getMessage(), array('action' => 'index'<?php echo $controllerRoutePostfix; ?>));
@@ -179,7 +179,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 				$<?php echo $parentIdVar;?> = $this-><?php echo $currentModelName; ?>->data['<?php echo $currentModelName; ?>']['<?php echo $parentIdDbVar;?>'];
 <?php endif; ?>
 <?php if ($wannaUseSession): ?>
-				$this->Session->setFlash(__('<?php echo $singularHumanName;?> saved', true), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+				$this->Session->setFlash(__('<?php echo $singularHumanName;?> saved', true), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 				$this->redirect(array('action' => 'view', $this-><?php echo $currentModelName; ?>->data['<?php echo $currentModelName; ?>'][<?php echo $controllerSingleParamDbField;?>]));
 <?php else: ?>
 			$this->flash(__('Invalid <?php echo strtolower($singularHumanName); ?>', true), array('action' => 'view', $this-><?php echo $currentModelName; ?>->data['<?php echo $currentModelName; ?>'][<?php echo $controllerSingleParamDbField;?>]));
@@ -196,7 +196,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 <?php endif;?>
 		} catch (OutOfBoundsException $e) {
 <?php if ($wannaUseSession): ?>
-			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 			$this->redirect('/');
 <?php else: ?>
 			$this->flash($e->getMessage(), '/');
@@ -245,7 +245,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			$result = $this-><?php echo $currentModelName; ?>->validateAndDelete(<?php echo $controllerSingleParamNameId; ?>, <?php if ($userIncluded) echo '$this->Auth->user(\'id\'), ';?>$this->request->data);
 			if ($result === true) {
 <?php if ($wannaUseSession): ?>
-				$this->Session->setFlash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> deleted', true), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+				$this->Session->setFlash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> deleted', true), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 				$this->redirect(array('action' => 'index'<?php echo $controllerRoutePostfix; ?>));
 <?php else: ?>
 				$this->flash(__('<?php echo ucfirst(strtolower($singularHumanName)); ?> deleted', true), array('action' => 'index'<?php echo $controllerRoutePostfix; ?>));
@@ -253,7 +253,7 @@ echo $Subtemplate->generate('controller', 'code', $this->templateVars);
 			}
 		} catch (Exception $e) {
 <?php if ($wannaUseSession): ?>
-			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap2',  'class' => 'alert-error'));
+			$this->Session->setFlash($e->getMessage(), 'alert', array('plugin' => 'TwitterBootstrap',  'class' => 'alert-error'));
 <?php if ($parentIncluded):?>
 			$this->redirect('/');
 <?php else: ?>
