@@ -52,7 +52,6 @@ if ($slugged) {
 		$this->expectRedirect($this-><?php echo $name ?>, array('action' => 'index'<?php if ($parentIncluded) echo ', ' . $parentExistsId ?>));
 		$this->assertFlash($this-><?php echo $name ?>, 'The <?php echo strtolower($singularHumanName);?> has been saved');
 		$this-><?php echo $name ?>-><?php echo $prefix;?>add(<?php if ($parentIncluded) echo $parentExistsId;?>);
-		//$this-><?php echo $name ?>->expectExactRedirectCount();
 	}
 
 /**
@@ -72,7 +71,6 @@ if ($slugged) {
 		$this->expectRedirect($this-><?php echo $name ?>, array('action' => 'view', <?php echo (!$slugged ? $existsId : "'slug1'");?>));
 		$this->assertFlash($this-><?php echo $name ?>, '<?php echo $singularHumanName;?> saved');
 		$this-><?php echo $name ?>-><?php echo $prefix;?>edit(<?php echo $existsId;?>);
-		//$this-><?php echo $name ?>->expectExactRedirectCount();
 	}
 
 /**
@@ -96,7 +94,6 @@ if ($slugged) {
 <?php endif; ?>
 		$this->assertFlash($this-><?php echo $name ?>, 'Invalid <?php echo $singularHumanName;?>');
 		$this-><?php echo $name ?>-><?php echo $prefix;?>view('WRONG-ID');
-		//$this-><?php echo $name ?>->expectExactRedirectCount();
 	}
 
 /**
@@ -125,7 +122,6 @@ if ($slugged) {
 		$this->expectRedirect($this-><?php echo $name ?>, array('action' => 'index'<?php if ($parentIncluded) echo ', ' . $parentExistsId ?>));
 		$this->assertFlash($this-><?php echo $name ?>, '<?php echo ucfirst(strtolower($singularHumanName));?> deleted');
 		$this-><?php echo $name ?>-><?php echo $prefix;?>delete(<?php echo $existsId;?>);
-		//$this-><?php echo $name ?>->expectExactRedirectCount();
 	}
 
 <?php if ($userIncluded): ?>

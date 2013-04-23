@@ -125,11 +125,15 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
  * @access public
  */
 	public function startTest($method) {
+<?php if (strtolower($type) == 'controller'): ?>
+		if (!session_id() && defined('CAKEPHP_SHELL')) {
+			session_id('testsuite');
+		}
+<?php endif;?>
 		parent::startTest($method);
 		$this-><?php echo $className . ' = ' . $localConstruction; ?>
 <?php if ($mock and strtolower($type) == 'controller'): ?>
 <?php if ($userIncluded): ?>
-		//$this-><?php echo $className ?>->Auth = new <?php echo $fullClassName; ?>TestAuthComponent();
 <?php endif;?>
 		$this-><?php echo $className ?>->params = array(
 			'named' => array(),
@@ -159,17 +163,6 @@ class <?php echo $fullClassName; ?>TestCase extends CakeTestCase {
 	echo $Subtemplate->generate('model', 'tests');
 ?>
 <?php elseif ($type == 'Controller'): ?>
-/**
- * Convenience method to assert Flash messages
- *
- * @return void
- * @access public
- */
-	// public function assertFlash($message) {
-		// $flash = $this-><?php echo $className ?>->Session->read('Message.flash');
-		// $this->assertEqual($flash['message'], $message);
-		// $this-><?php echo $className ?>->Session->delete('Message.flash');
-	// }
 
 /**
  * Test object instances
