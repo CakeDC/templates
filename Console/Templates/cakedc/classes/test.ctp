@@ -56,7 +56,7 @@ endif;
 echo "<?php\n";
 echo "/* ". $className ." Test cases generated on: " . date('Y-m-d H:m:s') . " : ". time() . "*/\n";
 ?>
-App::import('<?php echo $type; ?>', '<?php echo $plugin . $className;?>');
+App::uses('<?php echo $className; ?>', '<?php echo $plugin . $type;?>');
 
 <?php if ($mock and strtolower($type) == 'controller'): ?>
 <?php if ($userIncluded): ?>
@@ -65,7 +65,7 @@ App::import('<?php echo $type; ?>', '<?php echo $plugin . $className;?>');
 <?php endif; ?>
 <?php if (!empty($useAppTestCase)): ?>
 <?php if ($type == 'Model'):?>
-App::import('Lib', 'Templates.AppTestCase');
+App::uses('AppTestCase', 'Templates.Lib');
 <?php if (!empty($property)): ?>
 /**
 <?php 
