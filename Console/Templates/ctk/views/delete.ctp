@@ -17,17 +17,17 @@ App::uses('FormBaseView', 'Templates.Lib/Ctk/Default');
 class DeleteView extends FormBaseView {
 
 	public function build() {
-		$this->wrapperClass = '<?php echo $pluralVar;?> form';
-		$this->modelName = '<?php echo $modelClass;?>';
-		$this->formOptions = array('action' => 'delete', $this-><?php echo $singularVar;?>['<?php echo $modelClass;?>']['id']);
-		$this->title = array(
+		$this->_wrapperClass = '<?php echo $pluralVar;?> form';
+		$this->_modelName = '<?php echo $modelClass;?>';
+		$this->_formOptions = array('action' => 'delete', $this-><?php echo $singularVar;?>['<?php echo $modelClass;?>']['id']);
+		$this->_title = array(
 			$this->Html->P(array('text' => __('Delete User'))),
 			$this->Html->P(array('text' => <?php echo "sprintf(__('Delete {$singularHumanName} \"%s\"?'), \$this->{$singularVar}['{$modelClass}']['title'])";?>)),
 			$this->Html->P(array('text' => __('Be aware that your <?php echo $singularHumanName;?> and all associated data will be deleted if you confirm!'))),
 		);
-		$this->formButtonTitle = __('Continue');
+		$this->_formButtonTitle = __('Continue');
 
-		$this->fields = array(
+		$this->_fields = array(
 			$this->Cake->Input(array(
 				'field' => 'confirm', 
 				'options' => array(
@@ -38,7 +38,7 @@ class DeleteView extends FormBaseView {
 			)),
 		);
 			
-		$this->actions = array(
+		$this->_actions = array(
 <?php echo "\t\t\t\$this->Cake->Link(array('title' => __('List {$pluralHumanName}'), 'url' => array('action' => 'index'{$additionalParams}))),\n";?>
 		);
 

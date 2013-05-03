@@ -17,17 +17,17 @@ App::uses('FormBaseView', 'Templates.Lib/Ctk/Default');
 class <?php echo Inflector::camelize($action);?>View extends FormBaseView {
 
 	public function build() {
-		$this->wrapperClass = '<?php echo $pluralVar;?> form';
+		$this->_wrapperClass = '<?php echo $pluralVar;?> form';
 <?php if (in_array($action, array('add', 'admin_add'))): ?>
-<?php echo "\t\t\$this->modelName = '{$modelClass}';\n";?>
-<?php echo "\t\t\$this->formOptions = array('action' => 'add'{$additionalParams});\n";?>
+<?php echo "\t\t\$this->_modelName = '{$modelClass}';\n";?>
+<?php echo "\t\t\$this->_formOptions = array('action' => 'add'{$additionalParams});\n";?>
 <?php elseif (in_array($action, array('edit', 'admin_edit'))): ?>
-<?php echo "\t\t\$this->modelName = '{$modelClass}';\n";?>
-<?php echo "\t\t\$this->formOptions = array('action' => 'edit');\n";?>
+<?php echo "\t\t\$this->_modelName = '{$modelClass}';\n";?>
+<?php echo "\t\t\$this->_formOptions = array('action' => 'edit');\n";?>
 <?php endif;?>
-<?php echo "\t\t\$this->title = __('" . Inflector::humanize($action) . " {$singularHumanName}');\n";?>
+<?php echo "\t\t\$this->_title = __('" . Inflector::humanize($action) . " {$singularHumanName}');\n";?>
 		
-		$this->fields = array(
+		$this->_fields = array(
 <?php
 		foreach ($fields as $field) {
 			if (in_array($action, array('add', 'admin_add')) && $field == $primaryKey) {
@@ -52,7 +52,7 @@ class <?php echo Inflector::camelize($action);?>View extends FormBaseView {
 		$idKey = "\$this->Form->value('{$modelClass}.slug')";
 	}
 ?>
-		$this->actions = array(
+		$this->_actions = array(
 <?php if (!in_array($action, array('add', 'admin_add'))):?>
 <?php echo "\t\t\t\$this->Cake->Link(array('title' => __('Delete'), 'url' => array('action' => 'delete', {$idKeyPK}))),\n";?>
 <?php endif;?>

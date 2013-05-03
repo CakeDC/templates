@@ -16,10 +16,10 @@ App::uses('ViewBaseView', 'Templates.Lib/Ctk/Default');
 class ViewView extends ViewBaseView {
 
 	public function build() {
-		$this->wrapperClass = '<?php echo $pluralVar;?> index';
-		$this->modelName = '<?php echo $modelClass;?>';
-		$this->title = __('<?php echo $pluralHumanName;?>');
-		$this->fields = array(
+		$this->_wrapperClass = '<?php echo $pluralVar;?> index';
+		$this->_modelName = '<?php echo $modelClass;?>';
+		$this->_title = __('<?php echo $pluralHumanName;?>');
+		$this->_fields = array(
 <?php
 foreach ($fields as $field) {
 	$isKey = false;
@@ -53,7 +53,7 @@ foreach ($fields as $field) {
 		}
 ?>
 
-		$this->actions = array(
+		$this->_actions = array(
 <?php echo "\t\t\t\$this->Cake->Link(array('title' => __('Edit {$singularHumanName}'), 'url' => array('action' => 'edit', {$idKeyPK}))),\n";?>
 <?php echo "\t\t\t\$this->Cake->Link(array('title' => __('Delete {$singularHumanName}'), 'url' => array('action' => 'delete', {$idKeyPK}))),\n";?>
 <?php echo "\t\t\t\$this->Cake->Link(array('title' => __('List {$pluralHumanName}'), 'url' => array('action' => 'index'{$additionalParams}))),\n";?>
@@ -70,9 +70,6 @@ foreach ($fields as $field) {
 			}
 		}
 ?>
-		
-			$this->Cake->Link(array('title' => __('New User'), 'url' => array('action' => 'add'))),
-			$this->Cake->Link(array('title' => __('List User Details'), 'url' => array('controller' => 'user_details', 'action' => 'index'))),
 		);
 
 		parent::build();

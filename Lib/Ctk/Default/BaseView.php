@@ -22,27 +22,45 @@ abstract class BaseView extends CtkView {
 		'BootstrapFactory.Bootstrap' => array('assets' => false),
 	);
 
-	public $title = '';
-	public $modelName = null;
-
-	public $headers = array();
-
-	public $rows = array();
-
-	public $actions = array();
-
-	public function build() {
-		$wrapper = $this->Html->Div(array('class' => 'users index'));
-		$this->add($wrapper);
-		$wrapper->add($this->Html->H2(array('text' => $this->title)));
-
-		$wrapper->add($this->_buildTable());
-		$wrapper->add($this->_paging());
-		$this->add($this->_buildActions());
-	}
+/**
+ * Form or index page label
+ *
+ * @var string
+ */
+	protected $_title = '';
 
 /**
- * build table
+ * Model class name
+ *
+ * @var string
+ */
+	protected $_modelName = null;
+
+/**
+ * Table headers
+ *
+ * @var array
+ */
+	protected $_headers = array();
+
+/**
+ * Table rows
+ *
+ * @var array
+ */
+	protected $_rows = array();
+
+/**
+ * List of action links
+ *
+ * @var array
+ */
+	protected $_actions = array();
+
+/**
+ * Build table based on headers and rows params
+ *
+ * @return \HtmlTable
  */
 	protected function _buildTable() {
 		$table = $this->Html->Table();
@@ -53,14 +71,14 @@ abstract class BaseView extends CtkView {
 
 		$headRow = $this->Html->Tr();
 		$head->add($headRow);
-		foreach ($this->headers as $header) {
+		foreach ($this->_headers as $header) {
 			if ($header instanceof HtmlTh) {
 				$headRow->add($header);
 			} else {
 				$headRow->Th(array('text' => $header));
 			}
 		}
-		foreach ($this->rows as $rowCells) {
+		foreach ($this->_rows as $rowCells) {
 			$row = $body->Tr();
 			foreach ($rowCells as $cell) {
 				if ($cell instanceof HtmlTd) {
@@ -76,11 +94,16 @@ abstract class BaseView extends CtkView {
 		return $table;
 	}
 
+/**
+ * Generates action links list
+ *
+ * @return CtkNode
+ */
 	protected function _buildActions() {
 		$wrapper = $this->Html->Div(array('class' => 'actions'));
 		$wrapper->add($this->Html->H3(array('text' => __('Actions'))));
 		$list = $wrapper->Ul();
-		foreach ($this->actions as $action) {
+		foreach ($this->_actions as $action) {
 			$item = $this->Html->Li();
 			$list->add($item);
 			$item->add($action);
@@ -88,20 +111,21 @@ abstract class BaseView extends CtkView {
 		return $wrapper;
 	}
 
-	/**
+/**
+ * Generate edit link
+ *
  * @param array $record
  * @param array $url
  * @param string $title
- *
  * @return CakeLink
  */
-	protected function _editLink($record, $url = array(), $title = null) {
+	protected function _buildEditLink($record, $url = array(), $title = null) {
 		if (empty($title)) {
 			$title = __('Edit');
 		}
 		$defaultUrl = array(
 			'action' => 'edit',
-			$record[$this->modelName]['id']
+			$record[$this->_modelName]['id']
 		);
 		if (empty($url)) {
 			$url = Set::merge($defaultUrl, $url);
@@ -109,20 +133,21 @@ abstract class BaseView extends CtkView {
 		return $this->Cake->Link(compact('title', 'url'));
 	}
 
-	/**
-	 * @param array $record
-	 * @param array $url
-	 * @param string $title
-	 *
-	 * @return CakeLink
-	 */
-	protected function _viewLink($record, $url = array(), $title = null) {
+/**
+ * Generate view link
+ *
+ * @param array $record
+ * @param array $url
+ * @param string $title
+ * @return CakeLink
+ */
+	protected function _buildViewLink($record, $url = array(), $title = null) {
 		if (empty($title)) {
 			$title = __('View');
 		}
 		$defaultUrl = array(
 			'action' => 'view',
-			$record[$this->modelName]['id']
+			$record[$this->_modelName]['id']
 		);
 		if (empty($url)) {
 			$url = Set::merge($defaultUrl, $url);
@@ -130,20 +155,21 @@ abstract class BaseView extends CtkView {
 		return $this->Cake->Link(compact('title', 'url'));
 	}
 
-	/**
+/**
+ * Generate delete link
+ *
  * @param array $record
  * @param array $url
  * @param string $title
- *
  * @return CakeLink
  */
-	protected function _deleteLink($record, $url = array(), $title = null) {
+	protected function _buildDeleteLink($record, $url = array(), $title = null) {
 		if (empty($title)) {
 			$title = __('Delete');
 		}
 		$defaultUrl = array(
 			'action' => 'delete',
-			$record[$this->modelName]['id']
+			$record[$this->_modelName]['id']
 		);
 		if (empty($url)) {
 			$url = Set::merge($defaultUrl, $url);
@@ -151,7 +177,12 @@ abstract class BaseView extends CtkView {
 		return $this->Cake->Link(compact('title', 'url'));
 	}
 
-	protected function _paging() {
+/**
+ * Build paginator
+ *
+ * @return CtkNode
+ */
+	protected function _buildPaginator() {
 		$text =
 			$this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled')) .
 			 $this->Paginator->numbers(array('separator' => ''))  .
@@ -161,12 +192,18 @@ abstract class BaseView extends CtkView {
 		return $wrapper;
 	}
 
-	protected function _rowActions($record) {
+/**
+ * Build default row action
+ *
+ * @param $record
+ * @return HtmlTd
+ */
+	protected function _buildRowActions($record) {
 		$actions = $this->Html->Td();
 		$actions->addMany(array(
-			$this->_editLink($record),
-			$this->_viewLink($record),
-			$this->_deleteLink($record),
+			$this->_buildEditLink($record),
+			$this->_buildViewLink($record),
+			$this->_buildDeleteLink($record),
 		));
 		return $actions;
 	}

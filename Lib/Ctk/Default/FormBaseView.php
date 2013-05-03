@@ -3,36 +3,67 @@ App::uses('BaseView', 'Templates.Lib/Ctk/Default');
 
 abstract class FormBaseView extends BaseView {
 
-	public $wrapperClass = 'form';
-	public $formOptions = array();
-	public $fields = array();
-	public $formButtonTitle = null;
+/**
+ * Wrapper class value
+ *
+ * @var string
+ */
+	protected $_wrapperClass = 'form';
 
+/**
+ * Cake form settings
+ *
+ * @var array
+ */
+	protected $_formOptions = array();
+
+/**
+ * Field inputs list
+ *
+ * @var array
+ */
+	protected $_fields = array();
+
+/**
+ * Form submit button title
+ *
+ * @var string
+ */
+	protected $_formButtonTitle = null;
+
+/**
+ * Default build for method
+ */
 	public function build() {
-		if (empty($this->formButtonTitle)) {
-			$this->formButtonTitle = __('Submit');
+		if (empty($this->_formButtonTitle)) {
+			$this->_formButtonTitle = __('Submit');
 		}
-		$wrapper = $this->Html->Div(array('class' => $this->wrapperClass));
+		$wrapper = $this->Html->Div(array('class' => $this->_wrapperClass));
 		$this->add($wrapper);
 		$wrapper->add($this->_buildForm());
 		$this->add($this->_buildActions());
 	}
 
+/**
+ * Generates form based on field lists
+ *
+ * @return CakeForm
+ */
 	protected function _buildForm() {
-		$formOptions = Hash::merge(array('model' => $this->modelName), $this->formOptions);
+		$formOptions = Hash::merge(array('model' => $this->_modelName), $this->_formOptions);
 		$form = $this->Cake->Form($formOptions);
 		$fieldSet = $this->Html->Fieldset();
 		$form->add($fieldSet);
-		if (is_array($this->title)) {
+		if (is_array($this->_title)) {
 			$legend = $fieldSet->Legend();
-			$legend->addMany($this->title);
+			$legend->addMany($this->_title);
 		} else {
-			$fieldSet->Legend(array('text' => $this->title));
+			$fieldSet->Legend(array('text' => $this->_title));
 		}
 
-		$fieldSet->addMany($this->fields);
+		$fieldSet->addMany($this->_fields);
 
-		$form->add($this->Cake->Submit(array('caption' => $this->formButtonTitle)));
+		$form->add($this->Cake->Submit(array('caption' => $this->_formButtonTitle)));
 		return $form;
 	}
 

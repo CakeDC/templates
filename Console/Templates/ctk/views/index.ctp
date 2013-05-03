@@ -16,10 +16,10 @@ App::uses('IndexBaseView', 'Templates.Lib/Ctk/Default');
 class IndexView extends IndexBaseView {
 
 	public function build() {
-		$this->wrapperClass = '<?php echo $pluralVar;?> index';
-		$this->modelName = '<?php echo $modelClass;?>';
-		$this->title = __('<?php echo $pluralHumanName;?>');
-		$this->headers = array(
+		$this->_wrapperClass = '<?php echo $pluralVar;?> index';
+		$this->_modelName = '<?php echo $modelClass;?>';
+		$this->_title = __('<?php echo $pluralHumanName;?>');
+		$this->_headers = array(
 <?php  foreach ($fields as $field):?>
 			$this->Paginator->sort('<?php echo $field;?>'),
 <?php  endforeach; ?>
@@ -50,26 +50,21 @@ class IndexView extends IndexBaseView {
 			$idKey = "\${$singularVar}['{$modelClass}']['slug']";
 		}
 
-;?>
-			
-<?php if (false): //foreach ($fields as $field):?>
-				$this->Html->Td(array('text' => $<?php echo $singularVar;?>['<?php echo $modelClass;?>']['<?php echo $field;?>'])),
-				$this->_rowActions($user)
-<?php endif; //endforeach; ?>
+;?>			
 			);
 			$actions = $this->Html->Td(array('class' => 'actions'));
 			$actions->addMany(array(
 <?php 
-	echo "\t\t\t\t\$this->_viewLink(\${$singularVar}, array('action' => 'view', {$idKey})),\n";
-	echo "\t\t\t\t\$this->_editLink(\${$singularVar}, array('action' => 'edit', {$idKeyPK})),\n";
-	echo "\t\t\t\t\$this->_deleteLink(\${$singularVar}, array('action' => 'delete', {$idKeyPK})),\n";
+	echo "\t\t\t\t\$this->_buildViewLink(\${$singularVar}, array('action' => 'view', {$idKey})),\n";
+	echo "\t\t\t\t\$this->_buildEditLink(\${$singularVar}, array('action' => 'edit', {$idKeyPK})),\n";
+	echo "\t\t\t\t\$this->_buildDeleteLink(\${$singularVar}, array('action' => 'delete', {$idKeyPK})),\n";
 ?>
 			));
 			$cells[] = $actions;
-			$this->rows[] = $cells;
+			$this->_rows[] = $cells;
 		}
 
-		$this->actions = array(
+		$this->_actions = array(
 <?php echo "\t\t\t\$this->Cake->Link(array('title' => __('New {$singularHumanName}'), 'url' => array('action' => 'add'{$additionalParams}))),";?>
 
 <?php 
