@@ -18,7 +18,7 @@ class ViewView extends ViewBaseView {
 	public function build() {
 		$this->_wrapperClass = '<?php echo $pluralVar;?> index';
 		$this->_modelName = '<?php echo $modelClass;?>';
-		$this->_title = __('<?php echo $pluralHumanName;?>');
+		$this->_pageLabel = __('<?php echo $pluralHumanName;?>');
 		$this->_fields = array(
 <?php
 foreach ($fields as $field) {

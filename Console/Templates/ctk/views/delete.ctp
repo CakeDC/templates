@@ -20,7 +20,7 @@ class DeleteView extends FormBaseView {
 		$this->_wrapperClass = '<?php echo $pluralVar;?> form';
 		$this->_modelName = '<?php echo $modelClass;?>';
 		$this->_formOptions = array('action' => 'delete', $this-><?php echo $singularVar;?>['<?php echo $modelClass;?>']['id']);
-		$this->_title = array(
+		$this->_pageLabel = array(
 			$this->Html->P(array('text' => __('Delete User'))),
 			$this->Html->P(array('text' => <?php echo "sprintf(__('Delete {$singularHumanName} \"%s\"?'), \$this->{$singularVar}['{$modelClass}']['title'])";?>)),
 			$this->Html->P(array('text' => __('Be aware that your <?php echo $singularHumanName;?> and all associated data will be deleted if you confirm!'))),

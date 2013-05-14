@@ -25,7 +25,7 @@ class <?php echo Inflector::camelize($action);?>View extends FormBaseView {
 <?php echo "\t\t\$this->_modelName = '{$modelClass}';\n";?>
 <?php echo "\t\t\$this->_formOptions = array('action' => 'edit');\n";?>
 <?php endif;?>
-<?php echo "\t\t\$this->_title = __('" . Inflector::humanize($action) . " {$singularHumanName}');\n";?>
+<?php echo "\t\t\$this->_pageLabel = __('" . Inflector::humanize($action) . " {$singularHumanName}');\n";?>
 		
 		$this->_fields = array(
 <?php

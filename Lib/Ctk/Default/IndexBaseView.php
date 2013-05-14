@@ -15,7 +15,7 @@ abstract class IndexBaseView extends BaseView {
 	public function build() {
 		$wrapper = $this->Html->Div(array('class' => $this->_wrapperClass));
 		$this->add($wrapper);
-		$wrapper->add($this->Html->H2(array('text' => $this->_title)));
+		$wrapper->add($this->Html->H2(array('text' => $this->_pageLabel)));
 
 		$wrapper->add($this->_buildTable());
 		$wrapper->add($this->_buildPaginator());

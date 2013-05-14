@@ -18,7 +18,7 @@ class IndexView extends IndexBaseView {
 	public function build() {
 		$this->_wrapperClass = '<?php echo $pluralVar;?> index';
 		$this->_modelName = '<?php echo $modelClass;?>';
-		$this->_title = __('<?php echo $pluralHumanName;?>');
+		$this->_pageLabel = __('<?php echo $pluralHumanName;?>');
 		$this->_headers = array(
 <?php  foreach ($fields as $field):?>
 			$this->Paginator->sort('<?php echo $field;?>'),

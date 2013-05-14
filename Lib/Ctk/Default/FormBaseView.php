@@ -54,11 +54,11 @@ abstract class FormBaseView extends BaseView {
 		$form = $this->Cake->Form($formOptions);
 		$fieldSet = $this->Html->Fieldset();
 		$form->add($fieldSet);
-		if (is_array($this->_title)) {
+		if (is_array($this->_pageLabel)) {
 			$legend = $fieldSet->Legend();
-			$legend->addMany($this->_title);
+			$legend->addMany($this->_pageLabel);
 		} else {
-			$fieldSet->Legend(array('text' => $this->_title));
+			$fieldSet->Legend(array('text' => $this->_pageLabel));
 		}
 
 		$fieldSet->addMany($this->_fields);

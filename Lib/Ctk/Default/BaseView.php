@@ -27,7 +27,7 @@ abstract class BaseView extends CtkView {
  *
  * @var string
  */
-	protected $_title = '';
+	protected $_pageLabel = '';
 
 /**
  * Model class name
