@@ -63,8 +63,16 @@ abstract class FormBaseView extends BaseView {
 
 		$fieldSet->addMany($this->_fields);
 
-		$form->add($this->Cake->Submit(array('caption' => $this->_formButtonTitle)));
+		$form->add($this->_buildFormButtons());
 		return $form;
 	}
+
+/**
+ * @return mixed
+ */
+	protected function _buildFormButtons() {
+		return $this->Cake->Submit(array('caption' => $this->_formButtonTitle));
+	}
+
 
 }
