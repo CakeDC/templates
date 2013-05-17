@@ -50,8 +50,11 @@ abstract class FormBaseView extends BaseView {
  * @return CakeForm
  */
 	protected function _buildForm() {
-		$formOptions = Hash::merge(array('model' => $this->_modelName), $this->_formOptions);
-		$form = $this->Cake->Form($formOptions);
+		$form = $this->Cake->Form(array(
+				'model' => $this->_modelName,
+				'options' => $this->_formOptions
+			)
+		);
 		$fieldSet = $this->Html->Fieldset();
 		$form->add($fieldSet);
 		if (is_array($this->_pageLabel)) {
