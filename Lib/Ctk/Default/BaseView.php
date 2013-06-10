@@ -65,7 +65,7 @@ abstract class BaseView extends CtkView {
 	protected function _buildTable() {
 		$table = $this->Html->Table();
 		$head = $this->Html->Thead();
-		$body = $this->Html->TBody();
+		$body = $this->Html->Tbody();
 		$table->addMany(array($head, $body));
 		$table->add($body);
 
