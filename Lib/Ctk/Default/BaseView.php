@@ -6,7 +6,6 @@ App::uses('CtkView', 'Ctk.View');
  * @property  HtmlFactory  $Html
  * @property  JsFactory  $Js
  * @property  CakeFactory  $Cake
- * @property  BootstrapFactory  $Bootstrap
  */
 abstract class BaseView extends CtkView {
 
@@ -19,7 +18,6 @@ abstract class BaseView extends CtkView {
 		'Ctk.Html',
 		'Ctk.Js',
 		'CakeFactory.Cake',
-		'BootstrapFactory.Bootstrap' => array('assets' => false),
 	);
 
 /**
@@ -63,7 +61,7 @@ abstract class BaseView extends CtkView {
  * @return \HtmlTable
  */
 	protected function _buildTable() {
-		$table = $this->Html->Table();
+		$table = $this->Html->Table(array('class' => 'table'));
 		$head = $this->Html->Thead();
 		$body = $this->Html->Tbody();
 		$table->addMany(array($head, $body));
