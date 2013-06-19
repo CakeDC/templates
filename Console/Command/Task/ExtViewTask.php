@@ -94,5 +94,26 @@ class ExtViewTask extends ViewTask {
 			;
 	}
 
+	public function bake($action, $content = '') {
+		if ($content === true) {
+			$content = $this->getContent($action);
+		}
+		if (empty($content)) {
+			return false;
+		}
+		$this->out("\n" . __d('cake_console', 'Baking `%s` view file...', $action), 1, Shell::QUIET);
 
+		$themePath = $this->Template->getThemePath();
+		$isCtk = strpos(strtolower($themePath), 'ctk') !== false;
+		
+		$path = $this->getPath();
+		if ($isCtk) {
+			$filename = $path . $this->controllerName . DS . 'Ctk' . DS . Inflector::camelize(Inflector::underscore($action)) . 'View.php';
+		} else {
+			$filename = $path . $this->controllerName . DS . Inflector::underscore($action) . '.ctp';
+		}
+		return $this->createFile($filename, $content);
+	}
+
+	
 }
