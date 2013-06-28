@@ -9,6 +9,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::uses('CakeEmail', 'Network/Email');
 App::uses('ControllerTestCase', 'TestSuite'); 
 /**
  * App Controller Test case. Contains base set of fixtures.
@@ -275,6 +276,22 @@ class AppControllerTestCase extends ControllerTestCase {
 	protected function _resetExpectation() {
 		$this->__redirectExpectCount = 0;
 		$this->__setFlashExpectCount = 0;
+	}
+
+/**
+ * Provides conventional method to mock CakeEmail object
+ * 
+ * @return PHPUnit_Framework_MockObject_MockObject
+ */
+	public function mockCakeEmail() {
+		$CakeEmail = $this->getMock('CakeEmail');
+		$cakeEmailMethods = array('from', 'to', 'subject', 'template', 'viewVars', 'emailFormat', 'transport', 'replyTo', 'cc');
+		foreach ($cakeEmailMethods as $method) {
+			$CakeEmail->expects($this->any())
+				 ->method($method)
+				 ->will($this->returnSelf());
+		}
+		return $CakeEmail;
 	}
 	
 }
