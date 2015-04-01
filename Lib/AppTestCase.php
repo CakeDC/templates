@@ -8,6 +8,7 @@
  * @copyright Copyright 2005-2011, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('CakeEmail', 'Network/Email');
 
 /**
  * App Test case. Contains base set of fixtures.
@@ -96,14 +97,14 @@ class AppTestCase extends CakeTestCase {
 			$folder = APP . 'Test' . DS . 'Config' . DS;
 		} else {
 			$folder = App::pluginPath($type);
-				if (!empty($folder)) {
+			if (!empty($folder)) {
 				$folder .= 'Test' . DS . 'Config' . DS;
 			} else {
 				return false;
 			}
 		}
 		if (file_exists($folder . $fileName . '.php')) {
-			include($folder . $fileName . '.php');
+			include ($folder . $fileName . '.php');
 			$found = true;
 		}
 
@@ -159,8 +160,8 @@ class AppTestCase extends CakeTestCase {
  */
 	public function getTests() {
 		if (!empty($this->_testsToRun)) {
-			debug('Only the following tests will be executed: ' . join(', ', (array) $this->_testsToRun), false, false);
-			$result = array_merge(array('start', 'startCase'), (array) $this->_testsToRun, array('endCase', 'end'));
+			debug('Only the following tests will be executed: ' . join(', ', (array)$this->_testsToRun), false, false);
+			$result = array_merge(array('start', 'startCase'), (array)$this->_testsToRun, array('endCase', 'end'));
 			return $result;
 		} else {
 			return parent::getTests();
@@ -228,7 +229,6 @@ class AppTestCase extends CakeTestCase {
 		return $valid;
 	}
 
-	
 	public static function assertIsA($actual, $expected, $message = '') {
 		self::assertType($expected, $actual, $message);
 	}
@@ -250,7 +250,24 @@ class AppTestCase extends CakeTestCase {
 
 	// public static function assertEqual($expected, $actual, $message = '') {
 		// self::assertEquals($expected, $actual, $message);
-	// }	
+	// }
+
+/**
+ * Provides conventional method to mock CakeEmail object
+ *
+ * @return PHPUnit_Framework_MockObject_MockObject
+ */
+	public function mockCakeEmail() {
+		$CakeEmail = $this->getMock('CakeEmail');
+		$cakeEmailMethods = array('from', 'to', 'subject', 'template', 'viewVars', 'emailFormat', 'transport', 'replyTo', 'cc');
+		foreach ($cakeEmailMethods as $method) {
+			$CakeEmail->expects($this->any())
+				->method($method)
+				->will($this->returnSelf());
+		}
+		return $CakeEmail;
+	}
+
 }
 
 
