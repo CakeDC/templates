@@ -3,7 +3,7 @@
  *
  * @var array
  **/
-	public $_findMethods = array(
+	public $findMethods = array(
 		'search' => true
 	);
 
