@@ -55,8 +55,8 @@ class AppTestCase extends CakeTestCase {
  *
  * @return void
  */
-	public function __construct() {
-		parent::__construct();
+	public function __construct($name = null, array $data = array(), $dataName = '') {
+		parent::__construct($name, $data, $dataName);
 		if (is_subclass_of($this, 'AppTestCase')) {
 			$parentClass = get_parent_class($this);
 			$parentVars = get_class_vars($parentClass);
